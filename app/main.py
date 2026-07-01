@@ -35,13 +35,13 @@ load_dotenv()
 
 # print(text[:1000])
 
-from app.models.education import Education
+from app.models.projects import Project
 
-
-education = Education(
-    degree="B.Tech Computer Science"
+project = Project(
+    project_name="Resume Screening"
 )
 
-print(education.model_dump())
+
+print(project.model_dump())
 
 
