@@ -31,8 +31,17 @@ load_dotenv()
 # #print response
 # print(response.choices[0].message.content)
 
-text = extract_text_from_pdf("resumes/Sandeep_Kopparthi_Senior_Frontend_Engineer_CV_2025.pdf")
+# text = extract_text_from_pdf("resumes/Sandeep_Kopparthi_Senior_Frontend_Engineer_CV_2025.pdf")
 
-print(text[:1000])
+# print(text[:1000])
+
+from app.models.education import Education
+
+
+education = Education(
+    degree="B.Tech Computer Science"
+)
+
+print(education.model_dump())
 
 
