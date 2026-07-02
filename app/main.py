@@ -31,17 +31,67 @@ load_dotenv()
 # #print response
 # print(response.choices[0].message.content)
 
-# text = extract_text_from_pdf("resumes/Sandeep_Kopparthi_Senior_Frontend_Engineer_CV_2025.pdf")
+from app.nodes.resume_parser import ResumeParser
+from app.services.llm_service import LLMService
+from app.prompts.resume_parser_prompt import build_resume_parser_messages
+
+text = extract_text_from_pdf("resumes/Sandeep_Kopparthi_Senior_Frontend_Engineer_CV_2025.pdf")
+
+llm_service = LLMService()
+resume_parser = ResumeParser(llm_service)
+print("resume parse method response:", resume_parser.parse(text))
 
 # print(text[:1000])
 
-from app.models.projects import Project
+# from app.models.education import Education
+# from app.models.projects import Project
+# from app.models.resume import Resume
+# from app.models.work_experience import WorkExperience
 
-project = Project(
-    project_name="Resume Screening"
-)
+# resume = Resume(
+#     candidate_name="Sandeep K",
+
+#     summary="Senior Software Engineer with experience in Angular, Node.js and AI.",
+
+#     current_job_role="Senior Software Engineer",
+
+#     total_years_experience="6 Years",
+
+#     technical_skills=[
+#         "Angular",
+#         "Node.js",
+#         "Python"
+#     ],
+
+#     education=[
+#         Education(
+#             degree="B.Tech",
+#             institution="JNTU",
+#             graduation_year="2020"
+#         )
+#     ],
+
+#     projects=[
+#         Project(
+#             project_name="Resume Screening Agent",
+#             candidate_role="Full Stack Developer",
+#             technologies_used=[
+#                 "Python",
+#                 "Groq"
+#             ]
+#         )
+#     ],
+
+#     work_experience=[
+#         WorkExperience(
+#             company="Plural Technology",
+#             role="Senior Software Engineer"
+#         )
+#     ]
+# )
+
+# print(resume.model_dump())
 
 
-print(project.model_dump())
 
 
