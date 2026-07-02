@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from groq import Groq
 from app.nodes.candidate_evaluator import CandidateEvaluatorNode
+from app.nodes.interview_generator import InterviewGeneratorNode
 from app.nodes.jd_parser import JDParserNode
 from app.parsers.pdf_parser import extract_text_from_pdf
 
@@ -112,6 +113,8 @@ jd_parser = JDParserNode(llm_service)
 
 evaluator = CandidateEvaluatorNode(llm_service)
 
+interviewer = InterviewGeneratorNode(llm_service)
+
 resume_text = extract_text_from_pdf("resumes/Sandeep_Kopparthi_Senior_Frontend_Engineer_CV_2025.pdf")
 
 resume = resume_parser.parse(resume_text)
@@ -126,6 +129,40 @@ evaluation = evaluator.evaluate(
     job
 )
 
-print(
-    evaluation.model_dump_json(indent=4)
+plan = interviewer.generate(
+    resume,
+    job,
+    evaluation,
 )
+
+print("=" * 80)
+print("OVERALL STRATEGY")
+print("=" * 80)
+print(plan.overall_strategy)
+
+print()
+
+print("=" * 80)
+print("INTERVIEWER NOTES")
+print("=" * 80)
+print(plan.interviewer_notes)
+
+from collections import defaultdict
+
+sections = defaultdict(list)
+
+for q in plan.questions:
+    sections[q.category].append(q)
+
+for category, questions in sections.items():
+
+    print()
+
+    print("=" * 80)
+
+    print(category)
+
+    print("=" * 80)
+
+    for q in questions:
+        print(f"- {q.question}")

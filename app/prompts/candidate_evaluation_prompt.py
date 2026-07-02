@@ -3,6 +3,7 @@ from app.models.job_description import JobDescription
 
 
 def build_candidate_evaluation_prompt(
+    self,
     resume: Resume,
     job: JobDescription,
 ) -> list[dict]:

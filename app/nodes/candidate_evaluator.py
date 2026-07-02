@@ -26,8 +26,9 @@ class CandidateEvaluatorNode:
     ) -> CandidateEvaluation:
 
         prompt = build_candidate_evaluation_prompt(
-            resume,
-            job,
+            self,
+            resume=resume,
+            job=job,
         )
 
         response = self.llm_service.generate(
@@ -52,4 +53,4 @@ class CandidateEvaluatorNode:
             raise EvaluationException(
                 f"Failed to evaluate candidate: {e}"
             ) from e
-        self.llm_service = llm_service
+        

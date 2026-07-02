@@ -5,17 +5,17 @@ from app.models.skill_evidence import SkillEvidence
 
 class CandidateAssessment(BaseModel):
 
-    technical_match_score: int
+    technical_match_score: float
 
-    experience_match_score: int
+    experience_match_score: float
 
-    education_match_score: int
+    education_match_score: float
 
-    responsibility_match_score: int
+    responsibility_match_score: float
 
-    soft_skill_match_score: int
+    soft_skill_match_score: float
 
-    confidence_score: int
+    confidence_score: float
 
     required_matching_skills: list[str] = Field(default_factory=list)
 
