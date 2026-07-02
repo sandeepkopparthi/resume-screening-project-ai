@@ -1,6 +1,8 @@
 import os
 from dotenv import load_dotenv
 from groq import Groq
+from app.nodes.candidate_evaluator import CandidateEvaluatorNode
+from app.nodes.jd_parser import JDParserNode
 from app.parsers.pdf_parser import extract_text_from_pdf
 
 #load environment variables from .env file
@@ -35,11 +37,21 @@ from app.nodes.resume_parser import ResumeParser
 from app.services.llm_service import LLMService
 from app.prompts.resume_parser_prompt import build_resume_parser_messages
 
-text = extract_text_from_pdf("resumes/Sandeep_Kopparthi_Senior_Frontend_Engineer_CV_2025.pdf")
+# text = extract_text_from_pdf("resumes/Sandeep_Kopparthi_Senior_Frontend_Engineer_CV_2025.pdf")
 
-llm_service = LLMService()
-resume_parser = ResumeParser(llm_service)
-print("resume parse method response:", resume_parser.parse(text))
+
+# resume_parser = ResumeParser(llm_service)
+# print("resume parse method response:", resume_parser.parse(text))
+
+
+
+# jd_text = extract_text_from_pdf("job_descriptions/Sample_JD.pdf")
+
+# jd_parser = JDParserNode(llm_service)
+
+# job = jd_parser.parse(jd_text)
+
+# print(job)
 
 # print(text[:1000])
 
@@ -92,6 +104,28 @@ print("resume parse method response:", resume_parser.parse(text))
 
 # print(resume.model_dump())
 
+llm_service = LLMService()
+
+resume_parser = ResumeParser(llm_service)
+
+jd_parser = JDParserNode(llm_service)
+
+evaluator = CandidateEvaluatorNode(llm_service)
+
+resume_text = extract_text_from_pdf("resumes/Sandeep_Kopparthi_Senior_Frontend_Engineer_CV_2025.pdf")
+
+resume = resume_parser.parse(resume_text)
 
 
+jd_text = extract_text_from_pdf("job_descriptions/Sample_JD.pdf")
 
+job = jd_parser.parse(jd_text)
+
+evaluation = evaluator.evaluate(
+    resume,
+    job
+)
+
+print(
+    evaluation.model_dump_json(indent=4)
+)

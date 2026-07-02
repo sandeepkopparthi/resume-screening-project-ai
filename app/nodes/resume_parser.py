@@ -15,7 +15,6 @@ class ResumeParser:
         )
         response = response.replace("```json", "")
         response = response.replace("```", "")
-        print("Response from LLM:", response)
         
         response_dict = json.loads(response)
         resume = Resume.model_validate(response_dict)
