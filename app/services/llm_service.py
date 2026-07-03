@@ -2,6 +2,8 @@ from groq import Groq
 from dotenv import load_dotenv
 import os
 
+from app.models.chat import ChatMessages
+
 load_dotenv()
 
 
@@ -25,7 +27,7 @@ class LLMService:
             "llama-3.3-70b-versatile"
         )
 
-    def generate(self, messages: list[dict],temperature:float=0) -> str:
+    def generate(self, messages: ChatMessages, temperature: float = 0) -> str:
         response = self.client.chat.completions.create(
             model=self.model,
             messages=messages,

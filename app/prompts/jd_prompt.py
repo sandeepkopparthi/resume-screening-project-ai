@@ -1,4 +1,7 @@
-def build_jd_parser_prompt(job_description: str) -> list[dict]:
+from app.models.chat import ChatMessages
+
+
+def build_jd_messages(job_description: str) -> ChatMessages:
     return [
         {
             "role": "system",

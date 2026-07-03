@@ -1,4 +1,7 @@
-def build_resume_parser_messages(resume_text: str) -> list[dict]:
+from app.models.chat import ChatMessages
+
+
+def build_resume_messages(resume_text: str) -> ChatMessages:
     return [
         {
             "role": "system",

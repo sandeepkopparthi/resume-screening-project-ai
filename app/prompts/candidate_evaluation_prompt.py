@@ -1,12 +1,13 @@
+from app.models.chat import ChatMessages
 from app.models.resume import Resume
 from app.models.job_description import JobDescription
 
 
-def build_candidate_evaluation_prompt(
+def build_candidate_evaluation_messages(
     self,
     resume: Resume,
     job: JobDescription,
-) -> list[dict]:
+) -> ChatMessages:
 
     return [
         {

@@ -56,7 +56,7 @@ class InterviewPromptBuilder:
         """
 
         distribution = """
-        Generate approximately:
+        Generate exactly:
 
         Technical Core: 4
 
@@ -69,6 +69,8 @@ class InterviewPromptBuilder:
         Technical Scenario: 2
 
         Behavioral: 3
+
+        The output must contain exactly 17 questions.
         """
 
         resume_section = f"""
@@ -92,13 +94,31 @@ class InterviewPromptBuilder:
         output_schema = """
         Return ONLY valid JSON.
 
+        For category use ONLY one of:
+
+        - technical_core
+        - technical_missing
+        - technical_experience
+        - technical_architecture
+        - technical_scenario
+        - behavioral
+
+        For difficulty use ONLY one of:
+
+        - easy
+        - medium
+        - hard
+
+        Do NOT use spaces.
+        Do NOT capitalize values.
+
         {
             "overall_strategy": "...",
             "interviewer_notes": "...",
             "questions": [
                 {
-                    "category": "...",
-                    "difficulty": "...",
+                    "category": "technical_core",
+                    "difficulty": "medium",
                     "skill": "...",
                     "question": "...",
                     "purpose": "...",
@@ -119,6 +139,17 @@ class InterviewPromptBuilder:
         - Questions should progressively increase in difficulty.
         - Do not repeat the same concept in multiple questions.
         - Generate concise, interview-ready questions.
+
+        The values of category and difficulty are machine-readable enums.
+        Do not return human-friendly labels.
+
+        Correct:
+
+        technical_core
+
+        Incorrect:
+
+        Technical Core
         """
 
         return "\n\n".join(
