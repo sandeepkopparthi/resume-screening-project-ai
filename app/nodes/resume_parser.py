@@ -7,6 +7,7 @@ from app.models.screening_state import ScreeningState
 from app.parsers.pdf_parser import extract_text_from_pdf
 from app.prompts.resume_parser_prompt import  build_resume_messages
 from app.utils.json_utils import extract_json
+from app.utils.response_normalizer import normalize_resume_response
 
 class ResumeParserNode:
 
@@ -24,6 +25,11 @@ class ResumeParserNode:
         response = self.llm.generate(messages=messages, temperature=0)
 
         data = extract_json(response)
+
+        print("resume json:", data)
+
+        data = normalize_resume_response(data)
+
 
         resume = Resume.model_validate(data)
 

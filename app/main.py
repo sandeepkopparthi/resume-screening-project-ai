@@ -45,8 +45,8 @@ def main():
     # -----------------------------
 
     state = ScreeningState(
-        resume_file_path="resumes/Sandeep_Kopparthi_Senior_Frontend_Engineer_CV_2025.pdf",
-        jd_file_path="job_descriptions/Sample_JD.pdf",
+        resume_file_path="resumes/srimukhi_Tr_AME_CV.pdf",
+        jd_file_path="job_descriptions/ame_jd.pdf",
     )
 
     # -----------------------------
@@ -61,7 +61,7 @@ def main():
 
     # print("Result:", result)
 
-    print(result.model_dump_json(indent=4))
+    print("result",result.model_dump_json(indent=4))
 
 
 if __name__ == "__main__":
