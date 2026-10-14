@@ -20,7 +20,7 @@ class JobDescription(BaseModel):
 
     responsibilities: list[str] = Field(default_factory=list)
 
-    required_certifications: list[str] = Field(default_factory=list)
+    required_certifications: list[str] | None = Field(default_factory=list)
 
     tools_and_frameworks: list[str] = Field(default_factory=list)
 

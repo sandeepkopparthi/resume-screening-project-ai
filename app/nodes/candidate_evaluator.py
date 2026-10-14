@@ -45,6 +45,8 @@ class CandidateEvaluatorNode:
                 assessment
             )
 
+            print("candidate_evaluator:", candidate_evaluator)
+
             return state.model_copy(
                 update={
                     "candidate_evaluation": candidate_evaluator

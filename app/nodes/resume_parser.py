@@ -26,12 +26,12 @@ class ResumeParserNode:
 
         data = extract_json(response)
 
-        print("resume json:", data)
-
         data = normalize_resume_response(data)
 
 
         resume = Resume.model_validate(data)
+
+        # print("resume:", resume)
 
         return state.model_copy(
             update={
@@ -40,7 +40,6 @@ class ResumeParserNode:
             }
         )
 
-        # return state
 
 
 # without lang grap implementation

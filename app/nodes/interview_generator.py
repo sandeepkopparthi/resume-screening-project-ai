@@ -41,7 +41,13 @@ class InterviewGeneratorNode:
             )
 
             json_data = extract_json(response)
+
+            print("interview_questions_json:", json_data)
+            
             interview_questions_json = InterviewPlan.model_validate(json_data)
+
+            
+
             return state.model_copy(
                 update={
                     "interview_plan": interview_questions_json

@@ -1,5 +1,6 @@
 from langgraph.graph import StateGraph, START, END
 
+from app.graph.routing import route_after_evaluation
 from app.models.screening_state import ScreeningState
 
 from app.nodes.resume_parser import ResumeParserNode
@@ -71,10 +72,19 @@ class ScreeningWorkflow:
             "candidate_evaluator",
         )
 
-        builder.add_edge(
-            "candidate_evaluator",
-            "interview_generator",
-        )
+        # builder.add_edge(
+        #     "candidate_evaluator",
+        #     "interview_generator",
+        # )
+
+        builder.add_conditional_edges(
+        "candidate_evaluator",
+        route_after_evaluation,
+        {
+            "interview_generator": "interview_generator",
+            END: END,
+        },
+    )
 
         builder.add_edge(
             "interview_generator",

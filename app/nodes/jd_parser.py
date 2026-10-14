@@ -26,7 +26,11 @@ class JDParserNode:
 
             data = extract_json(response)
 
+            # print("job description json:", data)
+
             job_desc = JobDescription.model_validate(data)
+
+            # print("job description:", job_desc)
 
             return state.model_copy(
                 update={
